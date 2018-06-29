@@ -1,5 +1,5 @@
 let cacheName = "rest-app-v1";
-let  toCache = [
+let toCache = [
   "./",
   "index.html",
   "restaurant.html",
@@ -22,7 +22,9 @@ let  toCache = [
 
 self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(cacheName).then(cache => cache.addAll(toCache)).then(self.skipWaiting())
+    caches.open(cacheName)
+    .then(cache => cache.addAll(toCache))
+    .then(self.skipWaiting())
   );
 });
 
@@ -33,7 +35,7 @@ self.addEventListener("activate", event => {
         return caches.delete(cache);
       }
     })))
-  )
+  );
 })
 
 self.addEventListener("fetch", event => {
