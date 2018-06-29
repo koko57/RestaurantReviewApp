@@ -8,7 +8,7 @@ var markers = []
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-  initMap(); // added
+  // initMap(); // added
   fetchNeighborhoods();
   fetchCuisines();
 });
@@ -136,8 +136,6 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
-  li.setAttribute("tabindex", "0");
-
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
@@ -159,6 +157,7 @@ createRestaurantHTML = (restaurant) => {
 
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
+  more.setAttribute("aria-label", `${restaurant.name} - click for more information`);
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more)
 
@@ -179,3 +178,15 @@ createRestaurantHTML = (restaurant) => {
     self.markers.push(marker);
   });
 }
+
+/*
+* Service Worker registration
+// */
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker.register('./sw.js')
+//   .then(function(reg) {
+//     console.log('Registration succeeded. Scope is ' + reg.scope);
+//   }).catch(function(error) {
+//     console.log('Registration failed with ' + error);
+//   });
+// }
